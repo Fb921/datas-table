@@ -144,10 +144,10 @@ function sortObj(obj1, obj2, property, order) {
 }
 function DatasTable(props) {
   const searchInput = React.useRef();
-  const [totalEntries, setTotalEntries] = React.useState(props.datas.length);
+  const [totalEntries, setTotalEntries] = React.useState(props.datas.length || 0);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [nbEntriesToShow, setNbEntriesToShow] = React.useState(2);
-  const [totalPage, setTotalPage] = React.useState(Math.ceil(props.datas.length / 2));
+  const [totalPage, setTotalPage] = React.useState(Math.ceil(props.datas.length / 2 || 0));
   const [currentDatas, setCurrentDatas] = React.useState(props.datas);
   const [sortingAsc, setSortingAsc] = React.useState(true);
   const [sortingProperty, setSortingProperty] = React.useState(true);

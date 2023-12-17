@@ -34,11 +34,11 @@ function sortObj(obj1,obj2,property,order){
 function DatasTable(props){
 
     const searchInput = useRef();
-    const [totalEntries,setTotalEntries] = useState(props.datas.length);
+    const [totalEntries,setTotalEntries] = useState(props.datas.length || 0);
 
     const [currentPage,setCurrentPage] = useState(1);
     const [nbEntriesToShow,setNbEntriesToShow] = useState(2);
-    const [totalPage,setTotalPage] = useState(Math.ceil(props.datas.length/2));
+    const [totalPage,setTotalPage] = useState(Math.ceil((props.datas.length/2) || 0));
     const [currentDatas,setCurrentDatas] = useState(props.datas);
     const [sortingAsc,setSortingAsc] = useState(true);
     const [sortingProperty,setSortingProperty] = useState(true);

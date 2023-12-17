@@ -17,7 +17,7 @@ let header = [
 function App() {
 
   // let employees = useSelector(state => state.employees);
-  let employees = JSON.parse(window.localStorage.getItem('employees'));
+  let employees = JSON.parse(window.localStorage.getItem('employees')) || useSelector(state => state.employees);
 
   return (
       <div className="employees-list_container">
