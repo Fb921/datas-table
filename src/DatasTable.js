@@ -1,8 +1,7 @@
 import React from 'react'
 import { useState , useRef } from 'react';
 import './DatasTable.css'
-
-let nb_entries = [2,10,25,50,100]
+import Pagination from './Pagination.js';
 
 function matchesSearch(rowDatas,searchWord){
     for(let prop in rowDatas){
@@ -17,8 +16,6 @@ function search(datas,searchWord){
     let result = datas.filter(e=>{return matchesSearch(e,searchWord)});
     return result;
 }
-
-// let defaultNbToShow = 25;
 
 function sortObj(obj1,obj2,property,order){
     let o1 = new Object();
@@ -50,13 +47,11 @@ function DatasTable(props){
     function createTBody(datas){
         datas = datas.slice(nbEntriesToShow*(currentPage - 1),nbEntriesToShow*currentPage);
         let result = datas.map((e,i)=>{
-        e = new Object(e);
-        let row = props.head.map((h,y)=>{
-            return <td>{e[h.key]}</td>
-        })
-        return (
-            <tr>{row}</tr>
-            )
+            e = new Object(e);
+            let row = props.head.map((h,y)=>{
+                return <td key={"row_"+y+"_"+i}>{e[h.key]}</td>
+            })
+            return (<tr key={"row_"+i}>{row}</tr>)
         })
         return result;
     }
@@ -76,7 +71,17 @@ function DatasTable(props){
     }
 
     let head = props.head.map((e,i)=>{
-        return <th key={"head_"+i}>{e.value} <div class="tri_container" onClick={()=>{ sort_by(e.key); }}><div><i class="fa fa-caret-up"></i></div><div><i class="fa fa-caret-down"></i></div></div></th>
+        return <th key={"head_"+i}>
+                    {e.value} 
+                    <div className="tri_container" onClick={()=>{ sort_by(e.key); }}>
+                        <div>
+                            <i className="fa fa-caret-up"></i>
+                        </div>
+                        <div>
+                            <i className="fa fa-caret-down"></i>
+                        </div>
+                    </div>
+                </th>
     })
         
     function handleSearch(){
@@ -93,48 +98,12 @@ function DatasTable(props){
             let result = datas.map((e,i)=>{
                 e = new Object(e);
                 let row = props.head.map((h,y)=>{
-                    return <td >{e[h.key]}</td>
+                    return <td key={"row_"+y+"_"+i}>{e[h.key]}</td>
                 })
-                return (
-                    <tr>{row}</tr>
-                )
+                return ( <tr key={"row_"+i}>{row}</tr>)
             })
             setTableBody(result);
         }     
-    }
-
-    function handlePaginationNext(){
-        if(currentPage < Math.ceil(currentDatas.length/nbEntriesToShow)){
-            setCurrentPage(currentPage+1);
-            let datas = currentDatas.slice(nbEntriesToShow*(currentPage),nbEntriesToShow*(currentPage+1));
-            let result = datas.map((e,i)=>{
-                e = new Object(e);
-                let row = props.head.map((h,y)=>{
-                    return <td >{e[h.key]}</td>
-                })
-                return (
-                    <tr>{row}</tr>
-                )
-            })
-            setTableBody(result);
-        }
-    }
-
-    function handlePaginationPrev(){
-        if(currentPage > 1){
-            setCurrentPage(currentPage-1);
-            let datas = currentDatas.slice(nbEntriesToShow*(currentPage - 2),nbEntriesToShow*( currentPage - 1));
-            let result = datas.map((e,i)=>{
-                e = new Object(e);
-                let row = props.head.map((h,y)=>{
-                    return <td >{e[h.key]}</td>
-                })
-                return (
-                    <tr>{row}</tr>
-                )
-            })
-            setTableBody(result);
-        }
     }
 
     function handleNbEntryChange(newNb){
@@ -151,10 +120,10 @@ function DatasTable(props){
         let result = datas.map((e,i)=>{
             e = new Object(e);
             let row = props.head.map((h,y)=>{
-                return <td >{e[h.key]}</td>
+                return <td key={"row_"+y+"_"+i}>{e[h.key]}</td>
             })
             return (
-                <tr>{row}</tr>
+                <tr key={"row_"+i}>{row}</tr>
             )
         });
         setTableBody(result);
@@ -167,10 +136,10 @@ function DatasTable(props){
             let result = datas.map((e,i)=>{
                 e = new Object(e);
                 let row = props.head.map((h,y)=>{
-                    return <td >{e[h.key]}</td>
+                    return <td key={"row_"+y+"_"+i}>{e[h.key]}</td>
                 })
                 return (
-                    <tr>{row}</tr>
+                    <tr key={"row_"+i}>{row}</tr>
                 )
             })
             setTableBody(result);
@@ -179,8 +148,8 @@ function DatasTable(props){
 
     return (
         <div>
-            <div class="flex_container">
-                <div class="select-entries_container">
+            <div className="flex_container">
+                <div className="select-entries_container">
                     Show
                     <select onChange={(e)=>{handleNbEntryChange(e.target.value)}}>
                         <option>2</option>
@@ -203,22 +172,13 @@ function DatasTable(props){
                     {tableBody}
                 </tbody>
             </table>
-            <div class="flex_container">
+            <div className="flex_container">
                 <div>Showing {nbEntriesToShow*(currentPage - 1) + 1} to {(nbEntriesToShow> totalEntries)?totalEntries:(nbEntriesToShow*currentPage)} of {totalEntries} entries</div>
                 <div className="pagination_container">
-                    <button onClick={handlePaginationPrev}>Prev</button>
-                    <span className="current-page_container" onClick={()=>{handlePagination((totalPage <= 5)?1:((currentPage > totalPage - 4)?(totalPage - 4):currentPage));}}>
-                        {(totalPage <= 5)?1:((currentPage > totalPage - 4)?(totalPage - 4):currentPage)}
-                    </span>
-                    <span data-display={(totalPage >= currentPage+1) || (totalPage >= 2 && totalPage <= 5) || ((currentPage > totalPage - 4) && totalPage >= 5)} className="current-page_container" onClick={()=>handlePagination((totalPage <= 5)?2:((currentPage > totalPage - 4)?(totalPage - 3):(currentPage + 1)))}>{(totalPage <= 5)?2:((currentPage > totalPage - 4)?(totalPage - 3):(currentPage + 1))}</span>
-                    <span data-display={(totalPage >= currentPage+2) || (totalPage >= 3 && totalPage <= 5) || ((currentPage > totalPage - 4) && totalPage >= 5)} className="current-page_container" onClick={()=>handlePagination((totalPage <= 5)?3:((currentPage > totalPage - 4)?(totalPage - 2):(currentPage + 2)))}>{(totalPage <= 5)?3:((currentPage > totalPage - 4)?(totalPage - 2):(currentPage + 2))}</span>
-                    <span data-display={(totalPage >= currentPage+3) || (totalPage >= 4 && totalPage <= 5) || ((currentPage > totalPage - 4) && totalPage >= 5)} className="current-page_container" onClick={()=>handlePagination((totalPage <= 5)?4:((currentPage > totalPage - 4)?(totalPage - 1):(currentPage + 3)))}>{(totalPage <= 5)?4:((currentPage > totalPage - 4)?(totalPage - 1):(currentPage + 3))}</span>
-                    <span data-display={(totalPage >= currentPage+4) || (totalPage == 5) || ((currentPage > totalPage - 4) && totalPage >= 5)} className="current-page_container" onClick={()=>handlePagination((totalPage <= 5)?5:((currentPage > totalPage - 4)?(totalPage):(currentPage + 4)))}>{(totalPage <= 5)?5:((currentPage > totalPage - 4)?(totalPage):(currentPage + 4))}</span>
-                    <span data-display={(totalPage >= currentPage+5) || (currentPage + 5 <= 5)} className="ellipsis_e">...</span>
-                    <button onClick={handlePaginationNext}>Next</button>
+                    <Pagination datas={currentDatas} datasToDisplay={nbEntriesToShow} handlePagination={handlePagination} totalPage={totalPage} currentPage={currentPage}/>
                 </div>
             </div>
-            <div class="text-center"><a href="/">Home</a></div>
+            <div className="text-center"><a href="/">Home</a></div>
         </div>
     )
 }

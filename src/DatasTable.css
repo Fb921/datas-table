@@ -85,6 +85,18 @@ tbody tr:nth-child(2n + 1){
 .ellipsis_e{
     display:inline-block;
 }
+.page-element{
+    display:inline-block;
+    padding:5px 10px;
+    cursor:pointer;
+}
+.current{
+    background:rgb(186, 186, 186);
+}
+.next_btn, .prev_btn{
+    padding:5px 10px;
+    cursor:pointer;
+}
 *[data-display="false"]{
     display:none !important;
 }
