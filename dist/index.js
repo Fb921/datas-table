@@ -49,7 +49,8 @@ function Pagination({
   const [savedDatasToDisplay, setSavedDatasToDisplay] = React.useState(datasToDisplay);
   React.useEffect(() => {
     if (!paginationContent) {
-      let pages = [1, 2, 3, 4, 5, 6];
+      let pages = [1, 2, 3, 4, 5];
+      if (totalPage > 5) pages.push(6);
       pages = pages.map(i => {
         if (i == 6) return /*#__PURE__*/React__default["default"].createElement("span", {
           key: 'ellispis'
@@ -75,7 +76,9 @@ function Pagination({
   function handlePageClick(selectedPage) {
     let pages = [1, 2, 3, 4, 5];
     if (selectedPage < 1) selectedPage = 1;
-    if (selectedPage > totalPage) selectedPage = totalPage;
+    if (selectedPage > totalPage) {
+      selectedPage = totalPage;
+    }
     if (selectedPage < 4 || totalPage < 6) {
       if (totalPage > 5) pages.push(null);
     } else if (selectedPage > totalPage - 3) {
@@ -146,8 +149,8 @@ function DatasTable(props) {
   const searchInput = React.useRef();
   const [totalEntries, setTotalEntries] = React.useState(props.datas.length || 0);
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [nbEntriesToShow, setNbEntriesToShow] = React.useState(2);
-  const [totalPage, setTotalPage] = React.useState(Math.ceil(props.datas.length / 2 || 0));
+  const [nbEntriesToShow, setNbEntriesToShow] = React.useState(10);
+  const [totalPage, setTotalPage] = React.useState(Math.ceil(props.datas.length / 10 || 0));
   const [currentDatas, setCurrentDatas] = React.useState(props.datas);
   const [sortingAsc, setSortingAsc] = React.useState(true);
   const [sortingProperty, setSortingProperty] = React.useState(true);
@@ -226,7 +229,6 @@ function DatasTable(props) {
       setCurrentPage(Math.ceil(currentDatas.length / newNb));
       cPage = Math.ceil(currentDatas.length / newNb);
     }
-    // let nbPage = Math.ceil(currentDatas.length/nbEntriesToShow);
     setTotalPage(Math.ceil(currentDatas.length / newNb));
     let datas = currentDatas.slice(newNb * (cPage - 1), newNb * cPage);
     let result = datas.map((e, i) => {
@@ -268,7 +270,7 @@ function DatasTable(props) {
     onChange: e => {
       handleNbEntryChange(e.target.value);
     }
-  }, /*#__PURE__*/React__default["default"].createElement("option", null, "2"), /*#__PURE__*/React__default["default"].createElement("option", null, "10"), /*#__PURE__*/React__default["default"].createElement("option", null, "25"), /*#__PURE__*/React__default["default"].createElement("option", null, "50"), /*#__PURE__*/React__default["default"].createElement("option", null, "100")), "entries"), /*#__PURE__*/React__default["default"].createElement("div", {
+  }, /*#__PURE__*/React__default["default"].createElement("option", null, "10"), /*#__PURE__*/React__default["default"].createElement("option", null, "25"), /*#__PURE__*/React__default["default"].createElement("option", null, "50"), /*#__PURE__*/React__default["default"].createElement("option", null, "100")), "entries"), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "search_container"
   }, /*#__PURE__*/React__default["default"].createElement("input", {
     type: "text",
