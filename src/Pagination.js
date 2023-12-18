@@ -30,10 +30,10 @@ export default function Pagination({datas, datasToDisplay, currentPage, handlePa
         let pages = [1,2,3,4,5];
         if(selectedPage < 1) selectedPage = 1;
         if(selectedPage > totalPage) selectedPage = totalPage;
-        if(selectedPage < 4){
+        if(selectedPage < 4 || totalPage < 6){
             if(totalPage > 5) pages.push(null);
         }
-        else if((selectedPage >= 4 ) && selectedPage > totalPage - 3){//On ne fait pas défiler
+        else if(selectedPage > totalPage - 3){//On ne fait pas défiler
             pages = [totalPage - 4, totalPage - 3, totalPage - 2, totalPage - 1, totalPage];            
         }else{//On fait défiler la pagination en mettant la page sélectionnée au milieu
             pages = [selectedPage - 2, selectedPage - 1, selectedPage, selectedPage + 1, selectedPage +2, null];

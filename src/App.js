@@ -17,12 +17,12 @@ let header = [
 function App() {
 
   // let employees = useSelector(state => state.employees);
-  // let employees = JSON.parse(window.localStorage.getItem('employees')) || useSelector(state => state.employees);
+  let employees = JSON.parse(window.localStorage.getItem('employees'));
 
   return (
       <div className="employees-list_container">
           <h1>Current Employees</h1>
-          {/* <DatasTable head={header} datas={employees}></DatasTable> */}
+          <DatasTable head={header} datas={employees}></DatasTable>
       </div>
   );
   

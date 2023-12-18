@@ -70,9 +70,9 @@ function Pagination({
     let pages = [1, 2, 3, 4, 5];
     if (selectedPage < 1) selectedPage = 1;
     if (selectedPage > totalPage) selectedPage = totalPage;
-    if (selectedPage < 4) {
+    if (selectedPage < 4 || totalPage < 6) {
       if (totalPage > 5) pages.push(null);
-    } else if (selectedPage >= 4 && selectedPage > totalPage - 3) {
+    } else if (selectedPage > totalPage - 3) {
       //On ne fait pas défiler
       pages = [totalPage - 4, totalPage - 3, totalPage - 2, totalPage - 1, totalPage];
     } else {
@@ -286,5 +286,23 @@ function DatasTable(props) {
     href: "/"
   }, "Home")));
 }
+
+// import React from 'react';
+// import ReactDOM from 'react-dom/client';
+// import './index.css';
+// import App from './App';
+// import reportWebVitals from './reportWebVitals';
+
+// const root = ReactDOM.createRoot(document.getElementById('root'));
+// root.render(
+//     <React.StrictMode>
+//       <App />
+//     </React.StrictMode>
+// );
+
+// // If you want to start measuring performance in your app, pass a function
+// // to log results (for example: reportWebVitals(console.log))
+// // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// reportWebVitals();
 
 export { DatasTable as default };
