@@ -9,7 +9,8 @@ export default function Pagination({datas, datasToDisplay, currentPage, handlePa
     useEffect(()=>{
         if(!paginationContent){
             let i = 1;
-            let pages = [1,2,3,4,5,6];
+            let pages = [1,2,3,4,5];
+            if(totalPage > 5) pages.push(6);
             pages = pages.map( i => {
                 if(i == 6) return <span key={'ellispis'}>...</span>;
                 else if(i <= totalPage) return <span key={'page'+i} className={"page-element "+(i==1?"current":"")} onClick={()=>{handlePageClick(i)}}>{i}</span>;
@@ -29,7 +30,11 @@ export default function Pagination({datas, datasToDisplay, currentPage, handlePa
     function handlePageClick(selectedPage){
         let pages = [1,2,3,4,5];
         if(selectedPage < 1) selectedPage = 1;
-        if(selectedPage > totalPage) selectedPage = totalPage;
+
+        if(selectedPage > totalPage){ 
+            selectedPage = totalPage;        
+        }
+
         if(selectedPage < 4 || totalPage < 6){
             if(totalPage > 5) pages.push(null);
         }

@@ -37,8 +37,8 @@ function DatasTable(props){
     const [totalEntries,setTotalEntries] = useState(props.datas.length || 0);
 
     const [currentPage,setCurrentPage] = useState(1);
-    const [nbEntriesToShow,setNbEntriesToShow] = useState(2);
-    const [totalPage,setTotalPage] = useState(Math.ceil((props.datas.length/2) || 0));
+    const [nbEntriesToShow,setNbEntriesToShow] = useState(10);
+    const [totalPage,setTotalPage] = useState(Math.ceil((props.datas.length/10) || 0));
     const [currentDatas,setCurrentDatas] = useState(props.datas);
     const [sortingAsc,setSortingAsc] = useState(true);
     const [sortingProperty,setSortingProperty] = useState(true);
@@ -113,7 +113,6 @@ function DatasTable(props){
             setCurrentPage(Math.ceil(currentDatas.length/newNb));
             cPage = Math.ceil(currentDatas.length/newNb);
         }
-        // let nbPage = Math.ceil(currentDatas.length/nbEntriesToShow);
         setTotalPage(Math.ceil(currentDatas.length/newNb));
 
         let datas = currentDatas.slice(newNb*(cPage - 1),newNb*cPage);
@@ -152,7 +151,6 @@ function DatasTable(props){
                 <div className="select-entries_container">
                     Show
                     <select onChange={(e)=>{handleNbEntryChange(e.target.value)}}>
-                        <option>2</option>
                         <option>10</option>
                         <option>25</option>
                         <option>50</option>
