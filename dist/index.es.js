@@ -55,7 +55,8 @@ function Pagination({
           onClick: () => {
             handlePageClick(i);
           },
-          "aria-controls": tableId
+          "aria-controls": tableId,
+          tabindex: "0"
         }, i);
       });
       setPaginationContent(pages);
@@ -95,7 +96,8 @@ function Pagination({
           onClick: () => {
             handlePageClick(i);
           },
-          "aria-controls": tableId
+          "aria-controls": tableId,
+          tabindex: "0"
         }, i);
       }
     });
@@ -105,17 +107,21 @@ function Pagination({
   return /*#__PURE__*/React.createElement("div", {
     className: "pagination_container"
   }, /*#__PURE__*/React.createElement("span", {
+    id: "employee-table_previous",
     onClick: () => {
       handlePageClick(parseInt(currentPage) - 1);
     },
     className: "prev_btn",
-    "aria-controls": tableId
+    "aria-controls": tableId,
+    tabindex: "-1"
   }, "Prev"), paginationContent || "", /*#__PURE__*/React.createElement("span", {
+    id: "employee-table_next",
     onClick: () => {
       handlePageClick(parseInt(currentPage) + 1);
     },
     className: "next_btn",
-    "aria-controls": tableId
+    "aria-controls": tableId,
+    tabindex: "0"
   }, "Next"));
 }
 
@@ -194,7 +200,8 @@ function DatasTable(props) {
     return /*#__PURE__*/React.createElement("th", {
       key: "head_" + i,
       "aria-controls": props.tableId,
-      "aria-label": e.value
+      "aria-label": e.value + " : activate to sort column " + (sortingAsc ? "ascending" : "descending"),
+      tabindex: "0"
     }, e.value, /*#__PURE__*/React.createElement("div", {
       className: "tri_container " + currentSorting[e.value],
       onClick: () => {
@@ -290,10 +297,17 @@ function DatasTable(props) {
   }), /*#__PURE__*/React.createElement("button", {
     onClick: handleSearch
   }, "Chercher"))), /*#__PURE__*/React.createElement("table", {
-    id: props.tableId
-  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, head)), /*#__PURE__*/React.createElement("tbody", null, tableBody)), /*#__PURE__*/React.createElement("div", {
+    id: props.tableId,
+    "aria-describedby": props.tableId + '_infos',
+    role: "grid"
+  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", {
+    role: "row"
+  }, head)), /*#__PURE__*/React.createElement("tbody", null, tableBody)), /*#__PURE__*/React.createElement("div", {
     className: "flex_container"
-  }, /*#__PURE__*/React.createElement("div", null, "Showing ", nbEntriesToShow * (currentPage - 1) + 1, " to ", nbEntriesToShow > totalEntries ? totalEntries : nbEntriesToShow * currentPage, " of ", totalEntries, " entries"), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
+    id: props.tableId + '_infos',
+    "aria-live": "polite"
+  }, "Showing ", nbEntriesToShow * (currentPage - 1) + 1, " to ", nbEntriesToShow > totalEntries ? totalEntries : nbEntriesToShow * currentPage, " of ", totalEntries, " entries"), /*#__PURE__*/React.createElement("div", {
     className: "pagination_container"
   }, /*#__PURE__*/React.createElement(Pagination, {
     datas: currentDatas,

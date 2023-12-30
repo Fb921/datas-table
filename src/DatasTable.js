@@ -81,7 +81,7 @@ function DatasTable(props){
     }
 
     let head = props.head.map((e,i)=>{
-        return <th key={"head_"+i} aria-controls={props.tableId} aria-label={e.value}>
+        return <th key={"head_"+i} aria-controls={props.tableId} aria-label={e.value+" : activate to sort column "+(sortingAsc?"ascending":"descending")} tabindex="0">
                     {e.value} 
                     <div className={"tri_container " + currentSorting[e.value]} onClick={()=>{ sort_by(e.key,e.value); }}>
                         <div>
@@ -172,16 +172,16 @@ function DatasTable(props){
                     <input type="text" className="searchBar" ref={searchInput} aria-controls={props.tableId}/><button onClick={handleSearch}>Chercher</button>
                 </div>
             </div>
-            <table id={props.tableId}>
+            <table id={props.tableId} aria-describedby={props.tableId+'_infos'} role='grid'>
                 <thead>
-                    <tr>{head}</tr>
+                    <tr role='row'>{head}</tr>
                 </thead>
                 <tbody>
                     {tableBody}
                 </tbody>
             </table>
             <div className="flex_container">
-                <div>Showing {nbEntriesToShow*(currentPage - 1) + 1} to {(nbEntriesToShow> totalEntries)?totalEntries:(nbEntriesToShow*currentPage)} of {totalEntries} entries</div>
+                <div id={props.tableId+'_infos'} aria-live='polite'>Showing {nbEntriesToShow*(currentPage - 1) + 1} to {(nbEntriesToShow> totalEntries)?totalEntries:(nbEntriesToShow*currentPage)} of {totalEntries} entries</div>
                 <div className="pagination_container">
                     <Pagination datas={currentDatas} datasToDisplay={nbEntriesToShow} handlePagination={handlePagination} totalPage={totalPage} currentPage={currentPage} tableId={props.tableId}/>
                 </div>
