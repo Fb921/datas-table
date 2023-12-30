@@ -22,7 +22,7 @@ function App() {
   return (
       <div className="employees-list_container">
           <h1>Current Employees</h1>
-          {/* <DatasTable head={header} datas={employees}></DatasTable> */}
+          {/* <DatasTable head={header} datas={employees} tableId="employee-table"></DatasTable> */}
       </div>
   );
   

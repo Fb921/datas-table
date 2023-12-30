@@ -100,3 +100,12 @@ tbody tr:nth-child(2n + 1){
 *[data-display="false"]{
     display:none !important;
 }
+.tri_container{
+    margin-left:5px;
+}
+.tri_container.ascending div:nth-child(1){
+    color:#f10f4f;
+}
+.tri_container.descending div:nth-child(2){
+    color:#f10f4f;
+}

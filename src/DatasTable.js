@@ -34,14 +34,20 @@ function sortObj(obj1,obj2,property,order){
 function DatasTable(props){
 
     const searchInput = useRef();
-    const [totalEntries,setTotalEntries] = useState(props.datas.length || 0);
+    const [totalEntries,setTotalEntries] = useState(props.datas?props.datas.length:0);
 
     const [currentPage,setCurrentPage] = useState(1);
     const [nbEntriesToShow,setNbEntriesToShow] = useState(10);
-    const [totalPage,setTotalPage] = useState(Math.ceil((props.datas.length/10) || 0));
-    const [currentDatas,setCurrentDatas] = useState(props.datas);
+    const [totalPage,setTotalPage] = useState(Math.ceil((props.datas?(props.datas.length/10):0)));
+    const [currentDatas,setCurrentDatas] = useState(props.datas||[]);
     const [sortingAsc,setSortingAsc] = useState(true);
     const [sortingProperty,setSortingProperty] = useState(true);
+
+    let currS = {};
+    props.head.map(e => {
+        currS[e.value] = "none";
+    })
+    const [currentSorting,setCurrentSorting] = useState(currS)
 
     
     function createTBody(datas){
@@ -58,7 +64,7 @@ function DatasTable(props){
         
     const [tableBody,setTableBody] = useState(createTBody(props.datas));
     
-    function sort_by(property){
+    function sort_by(property,val){
         let order = !sortingAsc;
         if(property != sortingProperty){
             order = true;
@@ -68,12 +74,16 @@ function DatasTable(props){
         setTableBody(createTBody(newdatas));
         setSortingAsc(order);
         setSortingProperty(property);
+
+        let newCurr = currS;
+        newCurr[val] = order?"descending":"ascending";
+        setCurrentSorting(newCurr);
     }
 
     let head = props.head.map((e,i)=>{
-        return <th key={"head_"+i}>
+        return <th key={"head_"+i} aria-controls={props.tableId} aria-label={e.value}>
                     {e.value} 
-                    <div className="tri_container" onClick={()=>{ sort_by(e.key); }}>
+                    <div className={"tri_container " + currentSorting[e.value]} onClick={()=>{ sort_by(e.key,e.value); }}>
                         <div>
                             <i className="fa fa-caret-up"></i>
                         </div>
@@ -150,7 +160,7 @@ function DatasTable(props){
             <div className="flex_container">
                 <div className="select-entries_container">
                     Show
-                    <select onChange={(e)=>{handleNbEntryChange(e.target.value)}}>
+                    <select onChange={(e)=>{handleNbEntryChange(e.target.value)}} aria-controls={props.tableId}>
                         <option>10</option>
                         <option>25</option>
                         <option>50</option>
@@ -159,10 +169,10 @@ function DatasTable(props){
                     entries
                 </div>
                 <div className="search_container">
-                    <input type="text" className="searchBar" ref={searchInput}/><button onClick={handleSearch}>Chercher</button>
+                    <input type="text" className="searchBar" ref={searchInput} aria-controls={props.tableId}/><button onClick={handleSearch}>Chercher</button>
                 </div>
             </div>
-            <table>
+            <table id={props.tableId}>
                 <thead>
                     <tr>{head}</tr>
                 </thead>
