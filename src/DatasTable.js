@@ -183,7 +183,7 @@ function DatasTable(props){
             <div className="flex_container">
                 <div>Showing {nbEntriesToShow*(currentPage - 1) + 1} to {(nbEntriesToShow> totalEntries)?totalEntries:(nbEntriesToShow*currentPage)} of {totalEntries} entries</div>
                 <div className="pagination_container">
-                    <Pagination datas={currentDatas} datasToDisplay={nbEntriesToShow} handlePagination={handlePagination} totalPage={totalPage} currentPage={currentPage}/>
+                    <Pagination datas={currentDatas} datasToDisplay={nbEntriesToShow} handlePagination={handlePagination} totalPage={totalPage} currentPage={currentPage} tableId={props.tableId}/>
                 </div>
             </div>
             <div className="text-center"><a href="/">Home</a></div>

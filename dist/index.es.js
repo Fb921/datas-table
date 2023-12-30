@@ -35,7 +35,8 @@ function Pagination({
   datasToDisplay,
   currentPage,
   handlePagination,
-  totalPage
+  totalPage,
+  tableId
 }) {
   // const [currentPage, setCurrentPage] = useState(1);
   const [paginationContent, setPaginationContent] = useState(null);
@@ -53,7 +54,8 @@ function Pagination({
           className: "page-element " + (i == 1 ? "current" : ""),
           onClick: () => {
             handlePageClick(i);
-          }
+          },
+          "aria-controls": tableId
         }, i);
       });
       setPaginationContent(pages);
@@ -92,7 +94,8 @@ function Pagination({
           className: "page-element " + (i == selectedPage ? "current" : ""),
           onClick: () => {
             handlePageClick(i);
-          }
+          },
+          "aria-controls": tableId
         }, i);
       }
     });
@@ -105,12 +108,14 @@ function Pagination({
     onClick: () => {
       handlePageClick(parseInt(currentPage) - 1);
     },
-    className: "prev_btn"
+    className: "prev_btn",
+    "aria-controls": tableId
   }, "Prev"), paginationContent || "", /*#__PURE__*/React.createElement("span", {
     onClick: () => {
       handlePageClick(parseInt(currentPage) + 1);
     },
-    className: "next_btn"
+    className: "next_btn",
+    "aria-controls": tableId
   }, "Next"));
 }
 
@@ -295,7 +300,8 @@ function DatasTable(props) {
     datasToDisplay: nbEntriesToShow,
     handlePagination: handlePagination,
     totalPage: totalPage,
-    currentPage: currentPage
+    currentPage: currentPage,
+    tableId: props.tableId
   }))), /*#__PURE__*/React.createElement("div", {
     className: "text-center"
   }, /*#__PURE__*/React.createElement("a", {
