@@ -13,7 +13,7 @@ export default function Pagination({datas, datasToDisplay, currentPage, handlePa
             if(totalPage > 5) pages.push(6);
             pages = pages.map( i => {
                 if(i == 6) return <span key={'ellispis'}>...</span>;
-                else if(i <= totalPage) return <span key={'page'+i} className={"page-element "+(i==1?"current":"")} onClick={()=>{handlePageClick(i)}} aria-controls={tableId} tabindex="0">{i}</span>;
+                else if(i <= totalPage) return <span key={'page'+i} className={"page-element "+(i==1?"current":"")} onClick={()=>{handlePageClick(i)}} aria-controls={tableId} tabIndex="0">{i}</span>;
             })
             setPaginationContent(pages);
         }
@@ -46,7 +46,7 @@ export default function Pagination({datas, datasToDisplay, currentPage, handlePa
 
         pages = pages.map( i => { 
             if(i == null) return <span key={"ellipsis"}>...</span>;
-            if(i <= totalPage){ return <span key={'page'+i} className={"page-element "+(i==selectedPage?"current":"")} onClick={()=>{handlePageClick(i)}} aria-controls={tableId} tabindex="0">{i}</span>;}
+            if(i <= totalPage){ return <span key={'page'+i} className={"page-element "+(i==selectedPage?"current":"")} onClick={()=>{handlePageClick(i)}} aria-controls={tableId} tabIndex="0">{i}</span>;}
         })
 
         setPaginationContent(pages);
@@ -55,9 +55,9 @@ export default function Pagination({datas, datasToDisplay, currentPage, handlePa
 
     return(
         <div className="pagination_container">
-            <span id="employee-table_previous" onClick={()=>{handlePageClick(parseInt(currentPage) - 1)}} className="prev_btn" aria-controls={tableId} tabindex="-1">Prev</span>
+            <span id="employee-table_previous" onClick={()=>{handlePageClick(parseInt(currentPage) - 1)}} className="prev_btn" aria-controls={tableId} tabIndex="-1">Prev</span>
             {paginationContent || ""}
-            <span id="employee-table_next" onClick={()=>{handlePageClick(parseInt(currentPage) + 1)}} className="next_btn" aria-controls={tableId} tabindex="0">Next</span>
+            <span id="employee-table_next" onClick={()=>{handlePageClick(parseInt(currentPage) + 1)}} className="next_btn" aria-controls={tableId} tabIndex="0">Next</span>
         </div>
     )
 }

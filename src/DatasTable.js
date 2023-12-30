@@ -81,7 +81,7 @@ function DatasTable(props){
     }
 
     let head = props.head.map((e,i)=>{
-        return <th key={"head_"+i} aria-controls={props.tableId} aria-label={e.value+" : activate to sort column "+(sortingAsc?"ascending":"descending")} tabindex="0">
+        return <th key={"head_"+i} aria-controls={props.tableId} aria-label={e.value+" : activate to sort column "+(sortingAsc?"ascending":"descending")} tabIndex="0">
                     {e.value} 
                     <div className={"tri_container " + currentSorting[e.value]} onClick={()=>{ sort_by(e.key,e.value); }}>
                         <div>

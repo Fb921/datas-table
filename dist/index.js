@@ -62,7 +62,7 @@ function Pagination({
             handlePageClick(i);
           },
           "aria-controls": tableId,
-          tabindex: "0"
+          tabIndex: "0"
         }, i);
       });
       setPaginationContent(pages);
@@ -103,7 +103,7 @@ function Pagination({
             handlePageClick(i);
           },
           "aria-controls": tableId,
-          tabindex: "0"
+          tabIndex: "0"
         }, i);
       }
     });
@@ -119,7 +119,7 @@ function Pagination({
     },
     className: "prev_btn",
     "aria-controls": tableId,
-    tabindex: "-1"
+    tabIndex: "-1"
   }, "Prev"), paginationContent || "", /*#__PURE__*/React__default["default"].createElement("span", {
     id: "employee-table_next",
     onClick: () => {
@@ -127,7 +127,7 @@ function Pagination({
     },
     className: "next_btn",
     "aria-controls": tableId,
-    tabindex: "0"
+    tabIndex: "0"
   }, "Next"));
 }
 
@@ -207,7 +207,7 @@ function DatasTable(props) {
       key: "head_" + i,
       "aria-controls": props.tableId,
       "aria-label": e.value + " : activate to sort column " + (sortingAsc ? "ascending" : "descending"),
-      tabindex: "0"
+      tabIndex: "0"
     }, e.value, /*#__PURE__*/React__default["default"].createElement("div", {
       className: "tri_container " + currentSorting[e.value],
       onClick: () => {
