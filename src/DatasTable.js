@@ -76,7 +76,7 @@ function DatasTable(props){
         setSortingProperty(property);
 
         let newCurr = currS;
-        newCurr[val] = order?"descending":"ascending";
+        newCurr[val] = order?"ascending":"descending";
         setCurrentSorting(newCurr);
     }
 

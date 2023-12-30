@@ -199,7 +199,7 @@ function DatasTable(props) {
     setSortingAsc(order);
     setSortingProperty(property);
     let newCurr = currS;
-    newCurr[val] = order ? "descending" : "ascending";
+    newCurr[val] = order ? "ascending" : "descending";
     setCurrentSorting(newCurr);
   }
   let head = props.head.map((e, i) => {
