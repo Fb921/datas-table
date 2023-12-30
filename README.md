@@ -43,15 +43,15 @@ Allows the use of the project with import (es6) syntax.
 
 ### head
 
-Array of table head label. Every element should be an object with a key (for react key id) and value (data to display in the head cell) property.
+Array of the table's head labels. Every element should be an object with a key (for react key id) and value (data to display in the head cell) property.
 
 ### datas
 
-Datas to display in the table
+Array of datas to display in the table. Each element of this array should be an object which should contain as much property as object there is in the head parameter. Each of these properties's name should coincide with the key of the label it refers to in the head parameter. 
 
 ### tableId
 
-Table id (html attribute)
+Table id (html attribute). Will also be used to improve the accebility score.
 
 
 
